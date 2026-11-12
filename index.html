@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#111111">
+<title>Présence – NVIDIA Deep Learning ISITCom</title>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<style>
+:root{--g:#76b900;--gd:#4f7d00;--ink:#1b1f23;--mut:#6a737d;--bd:#e3e6ea;--bg:#f5f7f4;--red:#c62828;--redbg:#fdecea;--amb:#a15c00;--ambbg:#fff4e0;--okbg:#eef7e0}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:#111;color:#fff;padding:14px 16px 0}
+header h1{margin:0;font-size:17px;font-weight:600}
+header h1 b{color:var(--g)}
+.stats{display:flex;gap:10px;margin:12px 0 0;align-items:flex-end}
+.big{font-size:34px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.big small{font-size:16px;color:#aaa;font-weight:500}
+.bar{flex:1;height:8px;background:#333;border-radius:4px;overflow:hidden;margin-bottom:6px}
+.bar i{display:block;height:100%;background:var(--g);width:0;transition:width .4s}
+nav{display:flex;margin-top:12px}
+nav button{flex:1;background:none;border:0;color:#bbb;padding:12px 0;font:600 15px system-ui;border-bottom:3px solid transparent;cursor:pointer}
+nav button.on{color:#fff;border-color:var(--g)}
+main{max-width:640px;margin:0 auto;padding:16px}
+.card{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:14px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:0;border-radius:12px;padding:16px;font:600 17px system-ui;cursor:pointer;background:var(--g);color:#fff}
+.btn.sec{background:#fff;color:var(--ink);border:1px solid var(--bd)}
+.btn.dark{background:#111}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.sm{padding:10px 14px;font-size:15px;width:auto}
+.row{display:flex;gap:10px}.row>*{flex:1}
+input[type=text],input[type=search],input[type=password],input[type=tel]{width:100%;padding:13px 14px;border:1px solid var(--bd);border-radius:10px;font:16px system-ui;background:#fff}
+label.f{display:block;font-size:14px;color:var(--mut);margin:12px 0 6px}
+.or{display:flex;align-items:center;gap:10px;color:var(--mut);font-size:13px;margin:14px 0}
+.or:before,.or:after{content:"";flex:1;height:1px;background:var(--bd)}
+.st{border-radius:12px;padding:14px 16px;margin-bottom:14px;font-weight:600}
+.st.ok{background:var(--okbg);color:var(--gd)}.st.err{background:var(--redbg);color:var(--red)}.st.warn{background:var(--ambbg);color:var(--amb)}
+.st span{font-weight:400;display:block;font-size:14px;margin-top:2px}
+.who h2{margin:0 0 4px;font-size:22px}.who .meta{color:var(--mut);font-size:15px}
+.who dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:12px 0 0;font-size:14px}
+.who dt{color:var(--mut)}.who dd{margin:0;word-break:break-all}
+.sigwrap{position:relative;border:2px dashed #c9cfd6;border-radius:12px;background:#fff;touch-action:none;margin:10px 0}
+.sigwrap canvas{display:block;width:100%;height:220px;touch-action:none;border-radius:10px}
+.sigwrap .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#b0b7bf;pointer-events:none}
+.sigwrap .line{position:absolute;left:24px;right:24px;bottom:48px;border-bottom:1px solid #d7dce1;pointer-events:none}
+.sigimg{max-width:100%;border:1px solid var(--bd);border-radius:10px;background:#fff;display:block;margin-top:8px}
+.list{background:#fff;border:1px solid var(--bd);border-radius:14px;overflow:hidden}
+.it{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--bd);cursor:pointer}
+.it:last-child{border-bottom:0}
+.it .dot{width:10px;height:10px;border-radius:50%;background:#d0d5da;flex:none}.it.p .dot{background:var(--g)}
+.it .n{flex:1;min-width:0}.it .n b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.it .n small{color:var(--mut)}.it .t{font-size:13px;color:var(--gd);white-space:nowrap}
+.chips{display:flex;gap:8px;margin:10px 0}
+.chip{border:1px solid var(--bd);background:#fff;border-radius:20px;padding:7px 13px;font:500 14px system-ui;cursor:pointer}
+.chip.on{background:#111;color:#fff;border-color:#111}
+.note{color:var(--mut);font-size:13px;text-align:center;margin:8px 0}
+.hidden{display:none!important}
+#banner{background:var(--ambbg);color:var(--amb);padding:10px 16px;font-size:14px;text-align:center}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.grid3 div{background:var(--bg);border-radius:10px;padding:10px;text-align:center}.grid3 b{display:block;font-size:20px}.grid3 small{color:var(--mut);font-size:12px}
+.spin{width:18px;height:18px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:s .8s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+.vid{position:relative;border-radius:14px;overflow:hidden;background:#000;aspect-ratio:1/1}
+.vid video{width:100%;height:100%;object-fit:cover;display:block}
+.vid .frame{position:absolute;inset:15%;border:3px solid var(--g);border-radius:16px;box-shadow:0 0 0 999px rgba(0,0,0,.35)}
+.vid .x{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.6);color:#fff;border:0;border-radius:20px;padding:8px 14px;font:600 14px system-ui}
+#login{max-width:420px;margin:40px auto;padding:16px}
+</style>
+</head>
+<body>
+<!-- ============ CONFIGURATION : collez ici l'URL /exec de votre Apps Script ============ -->
+<script>const API_URL = 'COLLEZ_ICI_L_URL_DE_VOTRE_APPS_SCRIPT/exec';</script>
+
+<div id="login">
+  <div class="card">
+    <h2 style="margin:0 0 4px">Contrôle de présence</h2>
+    <p class="note" style="text-align:left;margin:0">NVIDIA Deep Learning · ISITCom</p>
+    <label class="f" for="agent">Votre prénom (agent)</label>
+    <input id="agent" type="text" autocomplete="name">
+    <label class="f" for="pin">Code PIN</label>
+    <input id="pin" type="password" inputmode="numeric" autocomplete="off">
+    <div style="height:14px"></div>
+    <button class="btn" id="go">Se connecter</button>
+    <p class="note" id="loginMsg"></p>
+  </div>
+</div>
+
+<div id="app" class="hidden">
+<header>
+  <h1><b>NVIDIA</b> Deep Learning · ISITCom — Présence</h1>
+  <div class="stats">
+    <div class="big"><span id="nPres">0</span><small> / <span id="nTot">–</span> présents</small></div>
+    <div class="bar"><i id="bar"></i></div>
+  </div>
+  <nav><button id="tScan" class="on">Scanner</button><button id="tList">Liste</button><button id="tStat">Bilan</button></nav>
+</header>
+<div id="banner" class="hidden"></div>
+<main>
+  <section id="vScan">
+    <div id="scanHome">
+      <div class="card">
+        <div id="vidBox" class="vid hidden"><video id="video" playsinline muted></video><div class="frame"></div><button class="x" id="stopCam">Fermer</button></div>
+        <button class="btn" id="startCam">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
+          <span>Scanner le QR code</span></button>
+        <label class="note" for="cam" style="display:block;text-decoration:underline;cursor:pointer">La caméra ne s'ouvre pas ? Prendre une photo du QR</label>
+        <input id="cam" type="file" accept="image/*" capture="environment" class="hidden">
+        <div class="or">ou saisir le code / chercher</div>
+        <input id="manual" type="text" placeholder="Code, nom ou e-mail" autocomplete="off">
+        <div id="sugg" class="list hidden" style="margin-top:8px"></div>
+      </div>
+      <div id="scanMsg"></div>
+    </div>
+    <div id="scanRes" class="hidden">
+      <div id="resSt"></div>
+      <div class="card who" id="resWho"></div>
+      <div class="card" id="sigCard">
+        <b>Signature de l'étudiant</b>
+        <div class="sigwrap"><canvas id="sig"></canvas><div class="line"></div><div class="ph" id="sigPh">Signez ici avec le doigt</div></div>
+        <div class="row"><button class="btn sec" id="sigClr">Effacer</button><button class="btn" id="sigOk" disabled>Valider la présence</button></div>
+      </div>
+      <div class="card hidden" id="prevSig"></div>
+      <button class="btn dark" id="next">Étudiant suivant</button>
+    </div>
+  </section>
+  <section id="vList" class="hidden">
+    <input id="q" type="search" placeholder="Rechercher un nom, e-mail, téléphone…">
+    <div class="chips" id="fChips"><button class="chip on" data-f="all">Tous</button><button class="chip" data-f="p">Présents</button><button class="chip" data-f="a">Absents</button></div>
+    <div class="list" id="list"></div><p class="note" id="listNote"></p>
+  </section>
+  <section id="vStat" class="hidden">
+    <div class="card" id="statBox"></div>
+    <div class="card"><b>Exporter</b>
+      <p class="note" style="text-align:left">La feuille « Presences » de votre Google Sheet contient tout (heure, agent, lien de la signature). Export rapide ici :</p>
+      <button class="btn" id="dl">Télécharger CSV</button><p class="note" id="expMsg"></p></div>
+    <button class="btn sec" id="logout">Se déconnecter</button>
+  </section>
+</main>
+</div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const PREFIX='ISITCOM-NVDLI:';
+let PIN='',AGENT='',ADMIN=false,A=new Map(),C=new Map(),cur=null,filt='all',signing=false;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,' ').trim();
+const niv=n=>({'Première Année':'1ʳᵉ année','Deuxième Année':'2ᵉ année','Troisième Année':'3ᵉ année'}[n]||n||'');
+const hhmm=i=>{try{return new Date(i).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}catch(e){return ''}};
+const dt=i=>{try{return new Date(i).toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}catch(e){return ''}};
+const banner=t=>{const b=$('banner');b.textContent=t||'';b.classList.toggle('hidden',!t)};
+const ls={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},del:k=>{try{localStorage.removeItem(k)}catch(e){}}};
+
+async function api(body){
+  const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({pin:PIN,...body})});
+  return r.json();
+}
+
+/* ---------- login ---------- */
+$('agent').value=ls.get('agent')||'';
+async function login(pin,agent,silent){
+  PIN=pin;AGENT=agent;$('loginMsg').textContent='Connexion…';
+  try{
+    const r=await api({action:'list'});
+    if(!r.ok){$('loginMsg').textContent=r.err||'Erreur';ls.del('pin');if(silent){$('login').classList.remove('hidden')}return}
+    ADMIN=!!r.admin;ls.set('pin',pin);ls.set('agent',agent);
+    A=new Map(Object.entries(r.participants));C=new Map(Object.entries(r.checkins));
+    $('login').classList.add('hidden');$('app').classList.remove('hidden');updateCounts();
+    setInterval(poll,8000);
+  }catch(e){$('loginMsg').textContent="Impossible de joindre le serveur. Vérifiez la connexion internet et l'URL API.";$('login').classList.remove('hidden')}
+}
+$('go').onclick=()=>{const p=$('pin').value.trim(),a=$('agent').value.trim();if(!a){$('loginMsg').textContent='Indiquez votre prénom.';return}if(p)login(p,a)};
+$('pin').onkeydown=e=>{if(e.key==='Enter')$('go').click()};
+$('logout').onclick=()=>{ls.del('pin');location.reload()};
+if(ls.get('pin')){$('login').classList.add('hidden');login(ls.get('pin'),ls.get('agent')||'',true)}
+
+async function poll(){
+  try{const r=await api({action:'checkins'});if(r.ok){C=new Map(Object.entries(r.checkins));banner('');updateCounts();refresh()}}
+  catch(e){banner('Connexion perdue : les données affichées peuvent ne pas être à jour.')}
+}
+function updateCounts(){let p=0;for(const k of C.keys())if(A.has(k))p++;$('nPres').textContent=p;$('nTot').textContent=A.size;$('bar').style.width=A.size?(100*p/A.size)+'%':'0'}
+function refresh(){if(!$('vList').classList.contains('hidden'))renderList();if(!$('vStat').classList.contains('hidden'))renderStat()}
+
+/* ---------- tabs ---------- */
+const tabs={tScan:'vScan',tList:'vList',tStat:'vStat'};
+function show(t){for(const u in tabs){$(u).classList.toggle('on',u===t);$(tabs[u]).classList.toggle('hidden',u!==t)}if(t!=='tScan')stopCam();if(t==='tList')renderList();if(t==='tStat')renderStat()}
+for(const t in tabs)$(t).onclick=()=>show(t);
+
+/* ---------- live camera ---------- */
+let stream=null,raf=0;const video=$('video'),work=document.createElement('canvas'),wx=work.getContext('2d',{willReadFrequently:true});
+$('startCam').onclick=async()=>{
+  try{
+    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280}},audio:false});
+    video.srcObject=stream;await video.play();$('vidBox').classList.remove('hidden');$('startCam').classList.add('hidden');$('scanMsg').innerHTML='';tick();
+  }catch(e){msg('warn','Caméra indisponible','Autorisez la caméra dans le navigateur, ou utilisez « Prendre une photo du QR ».')}
+};
+function stopCam(){cancelAnimationFrame(raf);if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}$('vidBox').classList.add('hidden');$('startCam').classList.remove('hidden')}
+$('stopCam').onclick=stopCam;
+function tick(){
+  if(!stream)return;
+  if(video.readyState>=2&&typeof jsQR==='function'){
+    const s=Math.min(1,640/Math.max(video.videoWidth,video.videoHeight));const w=Math.round(video.videoWidth*s),h=Math.round(video.videoHeight*s);
+    work.width=w;work.height=h;wx.drawImage(video,0,0,w,h);
+    const r=jsQR(wx.getImageData(0,0,w,h).data,w,h,{inversionAttempts:'dontInvert'});
+    if(r&&r.data){if(navigator.vibrate)navigator.vibrate(80);stopCam();handleCode(r.data);return}
+  }
+  raf=requestAnimationFrame(tick);
+}
+/* photo fallback */
+$('cam').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
+  try{const img=await new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=URL.createObjectURL(f)});
+    for(const max of [1000,1600,700]){const s=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));const w=Math.round(img.naturalWidth*s),h=Math.round(img.naturalHeight*s);
+      work.width=w;work.height=h;wx.drawImage(img,0,0,w,h);const r=jsQR(wx.getImageData(0,0,w,h).data,w,h,{inversionAttempts:'attemptBoth'});if(r&&r.data){handleCode(r.data);return}}
+    msg('err','QR code non lu','Reprenez la photo plus près et bien nette, ou saisissez le code écrit sous le QR.');
+  }catch(err){msg('err','Image illisible','Réessayez.')}};
+function handleCode(txt){
+  let t=String(txt).trim();if(t.toUpperCase().startsWith(PREFIX))t=t.slice(PREFIX.length);t=t.toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(!A.has(t)){msg('err','QR code invalide',"Ce code ne correspond à aucun étudiant confirmé.");return}
+  showPerson(t);
+}
+function msg(k,t,s){$('scanMsg').innerHTML=`<div class="st ${k}">${esc(t)}<span>${esc(s)}</span></div>`}
+
+/* ---------- search ---------- */
+$('manual').oninput=()=>{const v=$('manual').value.trim(),box=$('sugg');if(v.length<2){box.classList.add('hidden');return}
+  const up=v.toUpperCase().replace(/[^A-Z0-9]/g,'');if(A.has(up)){box.classList.add('hidden');$('manual').value='';showPerson(up);return}
+  const n=norm(v),hits=[];for(const [k,p] of A){if(norm(p.nom+' '+p.email+' '+p.tel).includes(n))hits.push([k,p]);if(hits.length>=8)break}
+  box.innerHTML=hits.length?hits.map(([k,p])=>item(k,p)).join(''):'<div class="it"><div class="n"><small>Aucun résultat</small></div></div>';box.classList.remove('hidden')};
+$('sugg').onclick=e=>{const it=e.target.closest('[data-k]');if(it){$('manual').value='';$('sugg').classList.add('hidden');showPerson(it.dataset.k)}};
+
+/* ---------- person ---------- */
+function showPerson(k){
+  const p=A.get(k);if(!p)return;cur=k;show('tScan');
+  $('scanHome').classList.add('hidden');$('scanRes').classList.remove('hidden');$('scanMsg').innerHTML='';
+  $('resWho').innerHTML=`<h2>${esc(p.nom)}</h2><div class="meta">${esc(p.filiere)}${p.niveau?' · '+esc(niv(p.niveau)):''}</div><dl><dt>E-mail</dt><dd>${esc(p.email||'–')}</dd><dt>Téléphone</dt><dd>${esc(p.tel||'–')}</dd><dt>Code</dt><dd>${esc(k)}</dd></dl>`;
+  const c=C.get(k);
+  if(c){$('resSt').innerHTML=`<div class="st warn">Déjà enregistré(e) à ${esc(hhmm(c.at))}<span>Validé le ${esc(dt(c.at))}${c.agent?' par '+esc(c.agent):''}. Ne pas valider une deuxième fois.</span></div>`;$('sigCard').classList.add('hidden');prevSig(k)}
+  else{$('resSt').innerHTML=`<div class="st ok">✓ Inscrit(e) — QR valide<span>Faites signer l'étudiant puis validez.</span></div>`;$('sigCard').classList.remove('hidden');$('prevSig').classList.add('hidden');sigReset();requestAnimationFrame(sigSize)}
+  window.scrollTo(0,0);
+}
+let undoArm=0;
+async function prevSig(k){
+  const box=$('prevSig');box.classList.remove('hidden');const undo=ADMIN?'<button class="btn sec sm" id="undo" style="margin-top:12px">Annuler cette présence</button>':'';
+  box.innerHTML='<b>Signature enregistrée</b><p class="note">Chargement…</p>'+undo;bindUndo(k);
+  try{const r=await api({action:'sig',code:k});if(cur!==k)return;const ok=r.img&&/^data:image\/png;base64,/.test(r.img);
+    box.innerHTML='<b>Signature enregistrée</b>'+(ok?`<img class="sigimg" alt="signature" src="${r.img}">`:'<p class="note">Aucune signature trouvée.</p>')+undo;bindUndo(k)}catch(e){}
+}
+function bindUndo(k){const b=$('undo');if(!b)return;b.onclick=async()=>{
+  if(Date.now()-undoArm>4000){undoArm=Date.now();b.textContent='Appuyer encore pour confirmer';return}
+  b.disabled=true;try{const r=await api({action:'undo',code:k});if(r.ok){C.delete(k);updateCounts();showPerson(k)}else b.textContent=r.err}catch(e){b.textContent='Échec réseau';b.disabled=false}}}
+$('next').onclick=()=>{cur=null;$('scanRes').classList.add('hidden');$('scanHome').classList.remove('hidden');window.scrollTo(0,0);$('startCam').click()};
+
+/* ---------- signature ---------- */
+const cv=$('sig'),cx=cv.getContext('2d');let ink=false,drawing=false,last=null;
+function sigSize(){const r=cv.getBoundingClientRect();if(!r.width)return;const d=window.devicePixelRatio||1;cv.width=Math.round(r.width*d);cv.height=Math.round(r.height*d);cx.setTransform(d,0,0,d,0,0);cx.lineCap='round';cx.lineJoin='round';cx.strokeStyle='#0b2a6b';cx.lineWidth=2.6;cx.fillStyle='#fff';cx.fillRect(0,0,r.width,r.height)}
+function sigReset(){ink=false;$('sigPh').classList.remove('hidden');$('sigOk').disabled=true;$('sigOk').textContent='Valider la présence';sigSize()}
+const pt=e=>{const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}};
+cv.addEventListener('pointerdown',e=>{e.preventDefault();cv.setPointerCapture(e.pointerId);drawing=true;last=pt(e)});
+cv.addEventListener('pointermove',e=>{if(!drawing)return;e.preventDefault();const p=pt(e);cx.beginPath();cx.moveTo(last.x,last.y);cx.lineTo(p.x,p.y);cx.stroke();last=p;if(!ink){ink=true;$('sigPh').classList.add('hidden');$('sigOk').disabled=false}});
+['pointerup','pointercancel','pointerleave'].forEach(ev=>cv.addEventListener(ev,()=>drawing=false));
+$('sigClr').onclick=sigReset;
+function sigData(){const W=600,H=Math.round(600*cv.height/cv.width)||220;const o=document.createElement('canvas');o.width=W;o.height=H;const x=o.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,W,H);x.drawImage(cv,0,0,W,H);return o.toDataURL('image/png')}
+$('sigOk').onclick=async()=>{
+  const k=cur;if(!k||!ink)return;const b=$('sigOk');b.disabled=true;b.innerHTML='<div class="spin"></div>';
+  try{
+    const r=await api({action:'checkin',code:k,sig:sigData(),agent:AGENT});
+    if(r.ok){C.set(k,{at:r.at,agent:AGENT});updateCounts();$('sigCard').classList.add('hidden');
+      $('resSt').innerHTML=`<div class="st ok">✓ Présence validée à ${esc(hhmm(r.at))}<span>${esc(A.get(k).nom)} est enregistré(e). Signature sauvegardée.</span></div>`}
+    else if(r.deja){C.set(k,{at:r.at});showPerson(k)}
+    else{$('resSt').innerHTML=`<div class="st err">Échec<span>${esc(r.err)}</span></div>`;b.textContent='Valider la présence';b.disabled=false}
+  }catch(e){$('resSt').innerHTML='<div class="st err">Échec de l\'enregistrement<span>Vérifiez la connexion internet puis réessayez.</span></div>';b.textContent='Valider la présence';b.disabled=false}
+};
+
+/* ---------- list / stats ---------- */
+const item=(k,p)=>{const c=C.get(k);return `<div class="it${c?' p':''}" data-k="${esc(k)}"><i class="dot"></i><div class="n"><b>${esc(p.nom)}</b><small>${esc(p.filiere)}${p.niveau?' · '+esc(niv(p.niveau)):''}</small></div>${c?`<span class="t">${esc(hhmm(c.at))}</span>`:''}</div>`};
+$('q').oninput=renderList;
+$('fChips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;filt=b.dataset.f;[...$('fChips').children].forEach(x=>x.classList.toggle('on',x===b));renderList()};
+$('list').onclick=e=>{const it=e.target.closest('[data-k]');if(it)showPerson(it.dataset.k)};
+function renderList(){const n=norm($('q').value);let rows=[...A.entries()].filter(([k,p])=>{const pr=C.has(k);if(filt==='p'&&!pr)return false;if(filt==='a'&&pr)return false;return !n||norm(p.nom+' '+p.email+' '+p.tel+' '+k).includes(n)});
+  rows.sort((a,b)=>filt==='p'?String(C.get(b[0]).at).localeCompare(String(C.get(a[0]).at)):norm(a[1].nom).localeCompare(norm(b[1].nom)));
+  $('list').innerHTML=rows.map(([k,p])=>item(k,p)).join('')||'<div class="it"><div class="n"><small>Aucun étudiant</small></div></div>';$('listNote').textContent=rows.length+' étudiant(s)'}
+function renderStat(){const g={};let tp=0;for(const [k,p] of A){const f=p.filiere||'Autre';g[f]=g[f]||{t:0,p:0};g[f].t++;if(C.has(k)){g[f].p++;tp++}}
+  $('statBox').innerHTML=`<b>Bilan en direct</b><div class="grid3"><div><b>${tp}</b><small>présents</small></div><div><b>${A.size-tp}</b><small>absents</small></div><div><b>${A.size?Math.round(100*tp/A.size):0}%</b><small>taux</small></div></div><div class="list" style="margin-top:12px">${Object.entries(g).sort((a,b)=>b[1].t-a[1].t).map(([f,v])=>`<div class="it" style="cursor:default"><div class="n"><b>${esc(f)}</b><small>${v.t} inscrits</small></div><span class="t">${v.p} présents</span></div>`).join('')}</div>`}
+$('dl').onclick=()=>{const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';const L=[['Nom','E-mail','Filière','Niveau','Téléphone','Code','Présent','Heure','Agent'].map(q).join(';')];
+  [...A.entries()].sort((a,b)=>norm(a[1].nom).localeCompare(norm(b[1].nom))).forEach(([k,p])=>{const c=C.get(k);L.push([p.nom,p.email,p.filiere,p.niveau,p.tel,k,c?'Oui':'Non',c?dt(c.at):'',c?c.agent:''].map(q).join(';'))});
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+L.join('\r\n')],{type:'text/csv'}));a.download='presence_NVIDIA_ISITCom.csv';document.body.appendChild(a);a.click();a.remove();$('expMsg').textContent='Fichier téléchargé.'};
+})();
+</script>
+</body>
+</html>
